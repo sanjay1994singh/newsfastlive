@@ -33,6 +33,7 @@ class News(models.Model):
     title = models.TextField(null=True, blank=True)
     text = models.TextField(null=True, blank=True)
     featured_image = models.ImageField(upload_to='news_image', null=True, blank=True)
+    count = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
