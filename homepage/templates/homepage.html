@@ -3,74 +3,25 @@
 Homepage | News Fast live
 {% endblock title %}
 
+{% block css %}
+<style>
+    .trend-bottom-img img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+</style>
+
+{% endblock css %}
+
 {% block content %}
 <div class="row">
-    <div class="col-lg-8">
-        <!-- Trending Top -->
-        <!--        <div class="trending-top mb-30">-->
-        <!--            <div class="trend-top-img">-->
-        <!--                <img src="{{news.featured_image.url}}" alt="">-->
-        <!--                <div class="trend-top-cap">-->
-        <!--                    <span>{{news.category}}</span>-->
-        <!--                    <h2><a href="details.html">{{news.title}}</a></h2>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <div class="trending-top mb-30">
-            <div class="trend-top-img">
-                <img src="/static/assets/img/trending/trending_top.jpg" alt="">
-                <div class="trend-top-cap">
-                    <span>Appetizers</span>
-                    <h2>
-                        <a href="details.html">
-                            Welcome To The Best Model Winner Contest At Look of the year
-                        </a>
-                    </h2>
-                </div>
-            </div>
-        </div>
+    <div class="col-lg-8 top-tranding-news">
+        <!-- Trending tOP -->
         <!-- Trending Bottom -->
-        <div class="trending-bottom">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="single-bottom mb-35">
-                        <div class="trend-bottom-img mb-30">
-                            <img src="/static/assets/img/trending/trending_bottom1.jpg" alt="">
-                        </div>
-                        <div class="trend-bottom-cap">
-                            <span class="color1">Lifestyple</span>
-                            <h4><a href="details.html">Get the Illusion of Fuller Lashes by
-                                “Mascng.”</a></h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="single-bottom mb-35">
-                        <div class="trend-bottom-img mb-30">
-                            <img src="/static/assets/img/trending/trending_bottom2.jpg" alt="">
-                        </div>
-                        <div class="trend-bottom-cap">
-                            <span class="color2">Sports</span>
-                            <h4><h4><a href="details.html">Get the Illusion of Fuller Lashes by
-                                “Mascng.”</a></h4></h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="single-bottom mb-35">
-                        <div class="trend-bottom-img mb-30">
-                            <img src="/static/assets/img/trending/trending_bottom3.jpg" alt="">
-                        </div>
-                        <div class="trend-bottom-cap">
-                            <span class="color3">Travels</span>
-                            <h4><a href="details.html"> Welcome To The Best Model Winner Contest</a>
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+
     <!-- Riht content -->
     <div class="col-lg-4">
         <div class="trand-right-single d-flex">
@@ -121,3 +72,52 @@ Homepage | News Fast live
     </div>
 </div>
 {% endblock content %}
+
+{% block js %}
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '/top_header_news/',
+            type: 'GET',
+            success: function(data) {
+                $('.top-tranding-news').html('')
+                var firstNews = data.news[0]
+                var html = '';
+                html += '<div class="trending-top mb-30">';
+                html += '<div class="trend-top-img">';
+                html += '<img src="'+firstNews.featured_image+'" alt="">';
+                html += '<div class="trend-top-cap">';
+                html += '<span>'+firstNews.category+'</span>';
+                html += '<h2>';
+                html += '<a href="details.html">'+firstNews.title+'</a>';
+                html += '</h2>';
+                html += '</div>';
+                html += '</div>';
+                html += '</div>';
+
+                html += '<div class="trending-bottom">';
+                html += '<div class="row">';
+                html += '</div>';
+                html += '</div>';
+
+                $('.top-tranding-news').append(html)
+
+                var html = '';
+                $.each(data.news.slice(1), function(index, item) {
+                    html += '<div class="col-lg-4">';
+                    html += '<div class="single-bottom mb-35">';
+                    html += '<div class="trend-bottom-img mb-30">';
+                    html += '<img src="'+item.featured_image+'" alt=""></div>';
+                    html += '<div class="trend-bottom-cap">';
+                    html += '<span class="color1">'+item.category+'</span>';
+                    html += '<h4><a href="details.html">'+item.title+'</a></h4>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                });
+                $('.trending-bottom .row').html(html);
+            },
+        });
+    });
+</script>
+{% endblock js %}

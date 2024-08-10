@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="/static/assets/css/slick.css">
     <link rel="stylesheet" href="/static/assets/css/nice-select.css">
     <link rel="stylesheet" href="/static/assets/css/style.css">
+    {% block css %}
+
+    {% endblock css %}
 </head>
 
 <body>
@@ -146,17 +149,14 @@
                             <strong>Trending now</strong>
                             <!-- <p>Rem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
                             <div class="trending-animated">
-                                <ul id="js-news" class="js-hidden">
-                                    <li class="news-item">Bangladesh dolor sit amet, consectetur adipisicing elit.</li>
-                                    <li class="news-item">Spondon IT sit amet, consectetur.......</li>
-                                    <li class="news-item">Rem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                                </ul>
+                                <marquee id="news-marquee" scrollamount="5" scrolldelay="60"></marquee>
                             </div>
 
                         </div>
                     </div>
                 </div>
                 {% block content %}
+
                 {% endblock content %}
             </div>
         </div>
@@ -1000,9 +1000,8 @@
                         <div class="footer-copy-right">
                             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                                All rights reserved | This template is made with <i class="ti-heart"
-                                                                                    aria-hidden="true"></i> by <a
-                                        href="https://colorlib.com" target="_blank">Colorlib</a>
+                                All rights reserved | Developed by <a
+                                        href="https://shriinfotechsolution.com/" target="_blank">Sanjay Singh (8279408396)</a>
                                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             </p>
                         </div>
@@ -1063,6 +1062,23 @@
 <!-- Jquery Plugins, main Jquery -->
 <script src="/static/assets/js/plugins.js"></script>
 <script src="/static/assets/js/main.js"></script>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '/top_header_scroll/',
+            type: 'GET',
+            success: function(data) {
+                let marqueeText = '';
+                $.each(data.news, function(index, item) {
+                    marqueeText += item.title + ' • ';
+                });
+                $('#news-marquee').html(marqueeText);
+            },
+        });
+    });
 
+</script>
+{% block js %}
+{% endblock js %}
 </body>
 </html>
