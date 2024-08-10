@@ -19,105 +19,104 @@ Homepage | News Fast live
 <div class="row">
     <div class="col-lg-8 top-tranding-news">
         <!-- Trending tOP -->
+        <div class="trending-top mb-30">
+            <div class="trend-top-img">
+                <img src="{{first_news.featured_image.url}}" alt="">
+                <div class="trend-top-cap">
+                    <span>{{first_news.category}}</span>
+                    <h2>
+                        <a href="details.html">{{first_news.title}}</a>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="trending-bottom">
+            <div class="row">
+                {% for i in other_top %}
+                <div class="col-lg-4">
+                    <div class="single-bottom mb-35">
+                        <div class="trend-bottom-img mb-30">
+                            <img src="{{i.featured_image.url}}" alt=""></div>
+                        <div class="trend-bottom-cap">
+                            <span class="color1">{{i.category}}</span>
+                            <h4><a href="details.html">{{i.title}}</a></h4>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
         <!-- Trending Bottom -->
     </div>
 
     <!-- Riht content -->
     <div class="col-lg-4">
+        <h3>Crime News</h3>
+        {% for i in crime_news %}
         <div class="trand-right-single d-flex">
             <div class="trand-right-img">
-                <img src="/static/assets/img/trending/right1.jpg" alt="">
+                <img src="{{i.featured_image.url}}" alt="" style="width:120px; height:100px;">
             </div>
             <div class="trand-right-cap">
-                <span class="color1">Concert</span>
-                <h4><a href="details.html">Welcome To The Best Model Winner Contest</a></h4>
+                <span class="color1">{{i.category}}</span>
+                <h4><a href="/news/detail/{{i.id}}/">{{i.title|slice:":40"}}</a></h4>
             </div>
         </div>
-        <div class="trand-right-single d-flex">
-            <div class="trand-right-img">
-                <img src="/static/assets/img/trending/right2.jpg" alt="">
-            </div>
-            <div class="trand-right-cap">
-                <span class="color3">sea beach</span>
-                <h4><a href="details.html">Welcome To The Best Model Winner Contest</a></h4>
-            </div>
-        </div>
-        <div class="trand-right-single d-flex">
-            <div class="trand-right-img">
-                <img src="/static/assets/img/trending/right3.jpg" alt="">
-            </div>
-            <div class="trand-right-cap">
-                <span class="color2">Bike Show</span>
-                <h4><a href="details.html">Welcome To The Best Model Winner Contest</a></h4>
-            </div>
-        </div>
-        <div class="trand-right-single d-flex">
-            <div class="trand-right-img">
-                <img src="/static/assets/img/trending/right4.jpg" alt="">
-            </div>
-            <div class="trand-right-cap">
-                <span class="color4">See beach</span>
-                <h4><a href="details.html">Welcome To The Best Model Winner Contest</a></h4>
-            </div>
-        </div>
-        <div class="trand-right-single d-flex">
-            <div class="trand-right-img">
-                <img src="/static/assets/img/trending/right5.jpg" alt="">
-            </div>
-            <div class="trand-right-cap">
-                <span class="color1">Skeping</span>
-                <h4><a href="details.html">Welcome To The Best Model Winner Contest</a></h4>
-            </div>
-        </div>
+        {% endfor %}
+    </div>
+    <div class="col-lg-12 text-center">
+        <h5><strong>Advertisement</strong></h5>
+        <img src="/static/assets/img/hero/header_card.jpg" alt="" class="img-fluid">
     </div>
 </div>
 {% endblock content %}
 
 {% block js %}
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            url: '/top_header_news/',
-            type: 'GET',
-            success: function(data) {
-                $('.top-tranding-news').html('')
-                var firstNews = data.news[0]
-                var html = '';
-                html += '<div class="trending-top mb-30">';
-                html += '<div class="trend-top-img">';
-                html += '<img src="'+firstNews.featured_image+'" alt="">';
-                html += '<div class="trend-top-cap">';
-                html += '<span>'+firstNews.category+'</span>';
-                html += '<h2>';
-                html += '<a href="details.html">'+firstNews.title+'</a>';
-                html += '</h2>';
-                html += '</div>';
-                html += '</div>';
-                html += '</div>';
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--        $.ajax({-->
+<!--            url: '/top_header_news/',-->
+<!--            type: 'GET',-->
+<!--            success: function(data) {-->
+<!--                $('.top-tranding-news').html('')-->
+<!--                var firstNews = data.news[0]-->
+<!--                var html = '';-->
+<!--                html += '<div class="trending-top mb-30">';-->
+<!--                html += '<div class="trend-top-img">';-->
+<!--                html += '<img src="'+firstNews.featured_image+'" alt="">';-->
+<!--                html += '<div class="trend-top-cap">';-->
+<!--                html += '<span>'+firstNews.category+'</span>';-->
+<!--                html += '<h2>';-->
+<!--                html += '<a href="details.html">'+firstNews.title+'</a>';-->
+<!--                html += '</h2>';-->
+<!--                html += '</div>';-->
+<!--                html += '</div>';-->
+<!--                html += '</div>';-->
 
-                html += '<div class="trending-bottom">';
-                html += '<div class="row">';
-                html += '</div>';
-                html += '</div>';
+<!--                html += '<div class="trending-bottom">';-->
+<!--                html += '<div class="row">';-->
+<!--                html += '</div>';-->
+<!--                html += '</div>';-->
 
-                $('.top-tranding-news').append(html)
+<!--                $('.top-tranding-news').append(html)-->
 
-                var html = '';
-                $.each(data.news.slice(1), function(index, item) {
-                    html += '<div class="col-lg-4">';
-                    html += '<div class="single-bottom mb-35">';
-                    html += '<div class="trend-bottom-img mb-30">';
-                    html += '<img src="'+item.featured_image+'" alt=""></div>';
-                    html += '<div class="trend-bottom-cap">';
-                    html += '<span class="color1">'+item.category+'</span>';
-                    html += '<h4><a href="details.html">'+item.title+'</a></h4>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '</div>';
-                });
-                $('.trending-bottom .row').html(html);
-            },
-        });
-    });
-</script>
+<!--                var html = '';-->
+<!--                $.each(data.news.slice(1), function(index, item) {-->
+<!--                    html += '<div class="col-lg-4">';-->
+<!--                    html += '<div class="single-bottom mb-35">';-->
+<!--                    html += '<div class="trend-bottom-img mb-30">';-->
+<!--                    html += '<img src="'+item.featured_image+'" alt=""></div>';-->
+<!--                    html += '<div class="trend-bottom-cap">';-->
+<!--                    html += '<span class="color1">'+item.category+'</span>';-->
+<!--                    html += '<h4><a href="details.html">'+item.title+'</a></h4>';-->
+<!--                    html += '</div>';-->
+<!--                    html += '</div>';-->
+<!--                    html += '</div>';-->
+<!--                    $('.trending-bottom .row').html(html);-->
+<!--                });-->
+
+<!--            },-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 {% endblock js %}
