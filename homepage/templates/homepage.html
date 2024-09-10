@@ -39,8 +39,9 @@ Homepage | News 11 Mathura
 {% endblock css %}
 
 {% block content %}
-<p><span class="bg-danger text-light p-1 live-tag">Live Streaming</span><i id="views_count" class="fa fa-eye p-4"
-                                                                           style="font-size:20px">&nbsp;{{view_count}}</i>
+<p>
+    <span class="bg-danger text-light p-1 live-tag">Live Streaming</span>
+    <i class="fa fa-eye p-4" style="font-size:20px">&nbsp; <span id="views_counts">0</span></i>
 </p>
 <div class="video-container mb-3">
     {{live_link|safe}}
@@ -105,16 +106,22 @@ Homepage | News 11 Mathura
 
 <script>
     $(document).ready(function() {
+    function updateViewsCount() {
         $.ajax({
             url: '/live_streaming/live_stream/',
             type: 'GET',
-            data:{
+            data: {
                 'live_id': {{live_id}}
             },
             success: function(data) {
-                $('#views_count').html(data.views_count)
+                $('#views_counts').html(data.view_count);
             },
         });
-    });
+    }
+    setInterval(updateViewsCount, 30000);
+    updateViewsCount();
+});
+
+
 </script>
 {% endblock js %}
