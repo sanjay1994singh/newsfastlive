@@ -17,12 +17,22 @@ def homepage(request):
     crime_news = news.filter(category__name='Crime')[:5]
 
     live_data = LiveStreaming.objects.filter(code='live_streaming')
-    print(live_data, '==================================live_data')
+    if live_data:
+        live_id = live_data[0].id
+        live_link = live_data[0].text
+        view_count = live_data[0].views_count
+    else:
+        live_id = 0
+        live_link = None
+        view_count = 0
+
     context = {
         'first_news': first_news,
         'other_top': top_other_tranding,
         'crime_news': crime_news,
-        'live_data': live_data[0].text,
+        'live_id': live_id,
+        'live_link': live_link,
+        'view_count': view_count,
     }
     return render(request, 'homepage.html', context)
 
