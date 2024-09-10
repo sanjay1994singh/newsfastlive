@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'homepage',
     'news',
     'advertisement',
+    'live_streaming',
 ]
 
 MIDDLEWARE = [

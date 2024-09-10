@@ -3,6 +3,8 @@ from django.shortcuts import render
 
 from news.models import News
 
+from live_streaming.models import LiveStreaming
+
 
 # Create your views here.
 def homepage(request):
@@ -13,10 +15,14 @@ def homepage(request):
     # end top tranding news ----
 
     crime_news = news.filter(category__name='Crime')[:5]
+
+    live_data = LiveStreaming.objects.filter(code='live_streaming')
+    print(live_data, '==================================live_data')
     context = {
         'first_news': first_news,
         'other_top': top_other_tranding,
         'crime_news': crime_news,
+        'live_data': live_data[0].text,
     }
     return render(request, 'homepage.html', context)
 

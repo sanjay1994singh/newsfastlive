@@ -28,6 +28,7 @@ Homepage | News 11 Mathura
         width: 100%;
         height: 100%;
     }
+
     .live-tag {
       border: 2px solid red;
       padding: 20px;
@@ -40,10 +41,7 @@ Homepage | News 11 Mathura
 {% block content %}
 <p><span class="bg-danger text-light p-1 live-tag">Live Streaming</span></p>
 <div class="video-container mb-3">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/a6Ug7khngys?si=1TMSAsBQU6DVA-79"
-            title="YouTube video player" frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    {{live_data|safe}}
 </div>
 
 <div class="row">
